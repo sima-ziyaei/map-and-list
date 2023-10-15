@@ -1,20 +1,34 @@
 import React, { useEffect } from "react";
-import { Marker, useMap } from "react-leaflet";
+import { Marker, Popup, useMap } from "react-leaflet";
+import * as L from "leaflet";
+import { GeoCoordinate, Vehicle } from "./App";
 
 interface Props {
-  vehicles: any;
-  clickedItem: any;
+  vehicles: Vehicle[];
+  clickedItem: GeoCoordinate;
+  setClickedMarkerIndex: (a: number) => void;
 }
 
 const ShowMarkers = React.forwardRef<HTMLDataListElement, Props>(
-  ({ clickedItem, vehicles }, itemsRef) => {
+  ({ clickedItem, vehicles, setClickedMarkerIndex }, itemsRef) => {
+    
+    const carIcon = L.icon({
+      iconUrl: "./assets/car.png",
+      shadowUrl: "./assets/car.png",
+      iconSize: [28, 35],
+      shadowSize: [0, 0],
+      iconAnchor: [22, 94],
+      shadowAnchor: [4, 62],
+      popupAnchor: [-3, -76],
+    });
+
     const map = useMap();
     useEffect(() => {
       if (clickedItem) {
         map.setView(
           [
-            clickedItem?.geoCoordinate?.latitude,
-            clickedItem?.geoCoordinate?.longitude,
+            clickedItem?.latitude,
+            clickedItem?.longitude,
           ],
           50
         );
@@ -24,17 +38,28 @@ const ShowMarkers = React.forwardRef<HTMLDataListElement, Props>(
     return vehicles.map((el, i) => {
       return (
         <Marker
+          icon={carIcon}
           key={i}
           eventHandlers={{
-            click: () => {
+            click: (e) => {
               if (itemsRef != null && typeof itemsRef !== "function") {
-                itemsRef.current.scrollTo();
+                itemsRef.current.scrollToItem(i, "center");
+                setClickedMarkerIndex(i);
+                map.setView(
+                  [el.geoCoordinate?.latitude, el.geoCoordinate?.longitude],
+                  50
+                );
               }
             },
           }}
-          // onClick={() => itemsRef != null && typeof itemsRef !== "function" ? itemsRef.current[i].scrollIntoView({ behavior: "smooth", block: "center" }) :null}
           position={[el.geoCoordinate.latitude, el.geoCoordinate.longitude]}
-        ></Marker>
+        >
+          <Popup>
+            {Object.entries(el).map((item, i) => (
+              <p key={i}>{`${item[0]}:${item[1]}`}</p>
+            ))}
+          </Popup>
+        </Marker>
       );
     });
   }
