@@ -41,7 +41,7 @@ const ShowMarkers = React.forwardRef<HTMLDataListElement, Props>(
           icon={carIcon}
           key={i}
           eventHandlers={{
-            click: (e) => {
+            click: () => {
               if (itemsRef != null && typeof itemsRef !== "function") {
                 itemsRef.current.scrollToItem(i, "center");
                 setClickedMarkerIndex(i);
