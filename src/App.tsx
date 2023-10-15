@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import VehiclesList from "./List";
-import ShowMap from "./Map";
+import VehiclesList from "./component/List";
+import ShowMap from "./component/Map";
 import axios from "axios";
 
 export interface Vehicle {

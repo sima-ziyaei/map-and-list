@@ -1,6 +1,6 @@
 import React from "react";
 import { FixedSizeList as List } from "react-window";
-import { GeoCoordinate, Vehicle } from "./App";
+import { GeoCoordinate, Vehicle } from "../App";
 
 interface Props {
   setClickedItem: (a: GeoCoordinate) => void;

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
 import * as L from "leaflet";
-import { GeoCoordinate, Vehicle } from "./App";
+import { GeoCoordinate, Vehicle } from "../App";
 
 interface Props {
   vehicles: Vehicle[];
@@ -15,7 +15,7 @@ const ShowMarkers = React.forwardRef<HTMLDataListElement, Props>(
     const carIcon = L.icon({
       iconUrl: "./assets/car.png",
       shadowUrl: "./assets/car.png",
-      iconSize: [28, 35],
+      iconSize: [33, 30],
       shadowSize: [0, 0],
       iconAnchor: [22, 94],
       shadowAnchor: [4, 62],

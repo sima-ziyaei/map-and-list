@@ -2,7 +2,7 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import ShowMarkers from "./ShowMarkers";
 import React from "react";
-import { GeoCoordinate, Vehicle } from "./App";
+import { GeoCoordinate, Vehicle } from "../App";
 
 interface Props {
   vehicles: Vehicle[];
